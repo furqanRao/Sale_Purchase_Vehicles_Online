@@ -1,0 +1,52 @@
+{% extends "vehicles_app/index.html" %}
+{% block body_block %}
+{% load staticfiles %}
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>LogIn Form!</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="{% static 'js/main.js' %}">
+
+    </script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  </head>
+<body>
+  <div class="container">
+          <div class="row centered-form">
+          <div class="col-xs-12 col-sm-6 col-md-6 col-sm-offset-2 col-md-offset-4">
+          	<div class="panel panel-default">
+          		<div style="background-color:rgb(220, 220, 220)" class="panel-heading">
+  			    		<h3 class="panel-title">Please Log In here!</h3>
+  			 			</div>
+  			 			<div style="background-color:rgb(220, 235, 220)" class="panel-body">
+                <form role="form" method="post" action="{% url 'vehicles_app:user_login' %}">
+                      {% csrf_token %}
+                  <div class="row">
+                    <div class="form-group">
+                      <input type="text" name="username" class="form-control input-sm" placeholder="Enter username" required><br>
+
+                          <div class="form-group">
+                            <input type="password" name="password" class="form-control input-sm" placeholder="Password" required><br>
+
+
+                        <input type="submit" value="Submit" id="submit" style="margin-left:150px; width: 20%" class="btn btn-info"> <input type="reset" value="Reset" id="reset" style="margin-left:40px; width: 20%" class="btn btn-danger">
+                      </div>
+                      </div>
+                      </div>
+                    </form>
+
+  	    		</div>
+      		</div>
+      </div>
+      </div>
+
+
+
+
+</body>
+</html>
+{% endblock %}
