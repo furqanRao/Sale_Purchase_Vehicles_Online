@@ -1,0 +1,76 @@
+{% extends "vehicles_app/index.html" %}
+{% block body_block %}
+{% load staticfiles %}
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Sign Up Form!</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <script type="text/javascript" src="{% static 'js/main.js' %}">
+
+    </script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  </head>
+<body>
+  <div class="container">
+          <div class="row centered-form">
+          <div class="col-xs-12 col-sm-6 col-md-6 col-sm-offset-2 col-md-offset-4">
+          	<div class="panel panel-default">
+          		<div style="background-color:rgb(220, 220, 220)" class="panel-heading">
+  			    		<h3 class="panel-title">Please sign up</h3>
+  			 			</div>
+  			 			<div style="background-color:rgb(220, 235, 220)" class="panel-body">
+  			    		<form role="form" method="post" action="{% url 'vehicles_app:signUp' %}" >
+  			    		    {% csrf_token %}
+  			    			<div class="row">
+  			    					<div class="form-group">
+                        <div style="float: left; width: 30%;">
+                        <label style=" margin-left:5px;" for="username">User Name:</label>
+                        </div>
+                      <div class="username" style="float: right; width: 70%">
+  			                <input type="text" name="username" id="username" class="form-control input-sm" placeholder="Username" required>
+  			    					</div>
+                      <br><br>
+
+
+
+  			    			   <div class="form-group">
+                      <div style="float: left; width: 30%">
+                      <label style=" margin-left:5px;" for="email">Email:</label>
+                      </div>
+                    <div class="email" style="float: right; width: 70%">
+  			    				<input type="email" name="email" id="email" class="form-control input-sm" placeholder="Email Address" required>
+  			    			</div>
+                <br><br>
+
+  			    					<div class="form-group">
+                        <div style="float: left; width: 30%">
+                        <label style=" margin-left:5px;" for="password">Password:</label>
+                        </div>
+                      <div class="password" style="float: right; width: 70%">
+  			    						<input type="password" name="password" id="password" class="form-control input-sm" placeholder="Password" required>
+  			    					</div>
+                    </div>
+                    <br>
+                    <br>
+
+
+  			    			<input type="submit" value="Submit" id="submit" style="margin-left:150px; width: 20%" class="btn btn-info"> <input type="reset" value="Reset" id="reset" style="margin-left:40px; width: 20%" class="btn btn-danger">
+
+  			    		</form>
+  			    	</div>
+  	    		</div>
+      		</div>
+      </div>
+      </div>
+      </div>
+
+
+
+
+</body>
+</html>
+{% endblock %}
