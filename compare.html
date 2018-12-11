@@ -1,0 +1,233 @@
+{% extends "vehicles_app/index.html" %}
+{% block body_block %}
+{% load staticfiles %}
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>LogIn Form!</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="{% static 'js/main.js' %}">
+
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+
+  </head>
+<body>
+  <script>
+  $(function() {
+    $('.selectpicker').selectpicker();
+  });
+
+
+  </script>
+  <section>
+
+    <div class="container" style="padding-left:240px; width:100%; margin-right: -69px;">
+
+            <div class="row">
+            <div class="col-xs-12">
+            <div class="box">
+            <div class="well" style=" background-color:rgb(220, 220, 220); margin-left:20px;">
+            <div class="panel panel-default">
+              <div style=" background-color:rgb(220, 235, 220);" class="panel-heading">
+                <h3 class="panel-title">Select Vehicles to compare here!</h3>
+              </div>
+              <div class="box-body" style="padding-left:120px; padding-top:40px;">
+                <form method="post" action="{% url 'vehicles_app:compare' %}">{% csrf_token %}
+                  <div class="form-group row">
+                    <label for="firstcar" class="col-sm-3 form-control-label">First Car:</label>
+                    <div class="col-sm-6"><a style="text-decoration:none;" disabled><small>Search same category vehicle.. ie type(cars honda city)</small></a>
+                      <select name="firstcar" class="form-control selectpicker" data-live-search="true">
+                          <optgroup label="Cars">
+                        {% for query in cars_query %}
+                            <option value="{{ query.id }}" data-tokens="{{ query.category }} {{ query.title }}">{{ query.title }} (<small>{{ query.condition }} {{ query.city }}</small>)</option>
+                        {% endfor %}
+                          </optgroup>
+                          <optgroup label="MotorBikes">
+                        {% for query in bikes_query %}
+                            <option value="{{ query.id }}" data-tokens="{{ query.category }} {{ query.title }}">{{ query.title }} (<small>{{ query.condition }} {{ query.city }}</small>)</option>
+                        {% endfor %}
+                          </optgroup>
+
+                          <optgroup label="Trucks">
+                        {% for query in trucks_query %}
+                            <option value="{{ query.id }}" data-tokens="{{ query.category }} {{ query.title }}">{{ query.title }} (<small>{{ query.condition }} {{ query.city }}</small>)</option>
+                        {% endfor %}
+                          </optgroup>
+
+                      </select>
+                    </div>
+                  </div><br>
+
+                  <div class="form-group row">
+                    <label for="secondcar" class="col-sm-3 form-control-label">Second Car:</label>
+                    <div class="col-sm-6"><a style="text-decoration:none;" disabled><small>Search same category vehicle... ie type(cars honda city)</small></a>
+                      <select name="secondcar" class="form-control selectpicker" data-live-search="true">
+                          <optgroup label="Cars">
+                        {% for query in cars_query %}
+                            <option value="{{ query.id }}" data-tokens="{{ query.category }} {{ query.title }}">{{ query.title }} (<small>{{ query.condition }} {{ query.city }}</small>)</option>
+                        {% endfor %}
+                          </optgroup>
+                          <optgroup label="MotorBikes">
+                        {% for query in bikes_query %}
+                            <option value="{{ query.id }}" data-tokens="{{ query.category }} {{ query.title }}">{{ query.title }} (<small>{{ query.condition }} {{ query.city }}</small>)</option>
+                        {% endfor %}
+                          </optgroup>
+
+                          <optgroup label="Trucks">
+                        {% for query in trucks_query %}
+                            <option value="{{ query.id }}" data-tokens="{{ query.category }} {{ query.title }}">{{ query.title }} (<small>{{ query.condition }} {{ query.city }}</small>)</option>
+                        {% endfor %}
+                          </optgroup>
+
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="form-group row" style="width: 50%; padding-left:300px;">
+                    <div class="col-sm-6">
+                      <input type="submit" value="Compare" id="submit" class="btn btn-info">
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+            </div>
+            <!-- /.col -->
+            </div>
+            </div>
+      </div>
+      </div>
+
+    </section>
+
+      {% if queryset1 and queryset2 %}
+      <div class="container" style="padding-left:240px; width:100%; margin-right: -69px;">
+
+              <div class="row">
+              <div class="col-xs-12">
+              <div class="box">
+              <div class="well" style=" background-color:rgb(220, 220, 220); margin-left:20px;">
+              <div class="panel panel-default">
+                <div style=" background-color:rgb(220, 235, 220);" class="panel-heading">
+                {% for querys in queryset2 %}
+                {% for query in queryset1 %}
+                 {% if querys.id == query.id or querys.category != query.category %}
+                  <h1 style="color:red;" class="panel-title">Please Select Different Vehicles of Same Category!</h1>
+                 {% else %}
+                  <h1 style="color: rgb(0, 0, 255); font-size:30px ;margin-left:10px;" class="panel-title"><b> {{ query.title }} </b> VS <b> {{ querys.title }} </b></h1>
+                </div>
+                <div class="panel-body">
+
+                  <div style="width:100%;">
+                     <div style="float:right; padding:10px;"><img width="200" height="200" src="{{ querys.image.url }}" alt="image removed" /><h5 style="text-align:center;"><b>{{ querys.title }}</b></h5></div>
+                     <div style="margin-left:300px; padding:10px;"><img width="200" height="200" src="{{ query.image.url }}" alt="image removed" /><h5 style="text-align:center;"><b>{{ query.title }}</b></h5></div>
+                  </div>
+                  <section>
+                        <h2>Features & Specifications</h2>
+                          <table class="table table-bordered">
+                        <tbody>
+                          <tr>
+                            <td width="40%">Price</td>
+                            <td width="30%">{{ query.price }}</td>
+                            <td width="30%">{{ querys.price }}</td>
+
+                          </tr>
+                          <tr>
+                            <td width="40%">Brand</td>
+                            <td width="30%">{{ query.brand }}</td>
+                            <td width="30%">{{ querys.brand }}</td>
+
+                          </tr>
+
+                          <tr>
+                            <td width="40%">Model Year</td>
+                            <td width="30%">{{ query.modelyear }}</td>
+                            <td width="30%">{{ querys.modelyear }}</td>
+
+                          </tr>
+
+                          <tr>
+                            <td width="40%">Condition</td>
+                            <td width="30%">{{ query.condition }}</td>
+                            <td width="30%">{{ querys.condition }}</td>
+
+                          </tr>
+
+                          <tr>
+                            <td width="40%">Mileage Overall</td>
+                            <td width="30%">{{ query.mileage }}</td>
+                            <td width="30%">{{ querys.mileage }}</td>
+
+                          </tr>
+                          {% if querys.category == 'motorbikes' %}
+                          {% else %}
+                          <tr>
+                            <td width="40%">Air Conditioner</td>
+                            <td width="30%">{{ query.air_conditioner }}</td>
+                            <td width="30%">{{ querys.air_conditioner }}</td>
+
+                          </tr>
+                          <tr>
+                            <td width="40%">Power Steering</td>
+                            <td width="30%">{{ query.power_steering }}</td>
+                            <td width="30%">{{ querys.power_steering }}</td>
+                          </tr>
+                          <tr>
+                            <td width="40%">Power Windows</td>
+                            <td width="30%">{{ query.power_windows }}</td>
+                            <td width="30%">{{ querys.power_windows }}</td>
+
+                          </tr>
+                          <tr>
+                            <td width="40%">Automatic Break System</td>
+                            <td width="30%">{{ query.automatic_break_system }}</td>
+                            <td width="30%">{{ querys.automatic_break_system }}</td>
+
+                          </tr>
+                          <tr>
+                            <td width="40%" width="40%">Air Bags</td>
+                            <td width="30%">{{ query.air_bags }}</td>
+                            <td width="30%">{{ querys.air_bags }}</td>
+
+                          </tr>
+                          <tr>
+                            <td width="40%">CD Player</td>
+                            <td width="30%">{{ query.cd_player }}</td>
+                            <td width="30%">{{ querys.cd_player }}</td>
+
+                          </tr>
+                          {% endif %}
+                        </tbody>
+                      </table>
+                <section>
+               {% endif %}
+              {% endfor %}
+              {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    {% endif %}
+
+
+
+
+</body>
+</html>
+{% endblock %}
