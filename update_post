@@ -1,0 +1,289 @@
+{% extends "vehicles_app/index.html" %}
+{% block body_block %}
+{% load staticfiles %}
+<html>
+<body>
+
+          <div class="container" id="addfile_form" style="margin-left:250px; width: 78%;">
+              <div class="panel panel-default" style=" background-color: rgb(220, 220, 220);">
+
+                <div class="panel-heading" style=" background-color: rgb(220, 200, 220);">
+              <b><h2 id="post_head" class="panel-title">Update Post here!</h2></b>
+            </div>
+                  <div class="panel-body">
+                <form id="post_form" method="post" action="{% url 'vehicles_app:update_post' post_id %}"
+                      enctype="multipart/form-data">
+                      {% csrf_token %}
+                  <div style="padding:10px;" class="">
+
+                    <div class="row">
+                      <div class="form-group">
+                        <div style="float: left; width: 50%">
+                          <label for="category">Category:</label>
+                          </div>
+                          <div class="category" style="float: right; width: 45%">
+                          <select style="width:180px;" style="width:180px;" name="category">
+                            <option value="cars" {% if form.initial.category == 'cars' %}selected{% endif %}>Cars</option>
+                            <option value="trucks" {% if form.initial.category == 'trucks' %}selected{% endif %}>Trucks</option>
+                            <option value="motorbikes" {% if form.initial.category == 'motorbikes' %}selected{% endif %}>Motor Bikes</option>
+                          </select>
+                          </div>
+                        </div>
+                    <br>
+
+                    <div class="form-group">
+                      <div style="float: left; width: 50%">
+                      <label for="title">Ad Title</label>
+                      </div>
+                      <div class="title" style="float: right; width: 45%">
+                        <input type="text" maxlength="30" name="title" placeholder="Type Here" value='{{ form.initial.title }}' required>
+                      </div>
+                    </div>
+                    <br>
+
+                    <div class="form-group">
+                      <div style="float: left; width: 50%">
+                      <label for="city">City</label>
+                      </div>
+                      <div class="city" style="float: right; width: 45%">
+                        <select style="width:180px;" name="city">
+                          <option value="islamabad" {% if form.initial.city == 'islamabad' %}selected{% endif %}>Islamabad</option>
+                          <option value="karachi" {% if form.initial.city == 'karachi' %}selected{% endif %}>Karachi</option>
+                          <option value="lahore" {% if form.initial.city == 'lahore' %}selected{% endif %}>Lahore</option>
+                          <option value="peshawar" {% if form.initial.city == 'peshawar' %}selected{% endif %}>Peshawar</option>
+                          <option value="quetta" {% if form.initial.city == 'quetta' %}selected{% endif %}>Quetta</option>
+                          <option value="multan" {% if form.initial.city == 'multan' %}selected{% endif %}>Multan</option>
+                          <option value="faisalabad" {% if form.initial.city == 'faisalabad' %}selected{% endif %}>Faisalabad</option>
+                        </select>
+                      </div>
+                      </div>
+                    <br>
+
+                    <div class="form-group">
+                      <div style="float: left; width: 50%">
+                      <label for="price">Price</label>
+                      </div>
+                      <div class="price" style="float: right; width: 45%">
+                        <input type="text" name="price" placeholder="Type Here" value='{{ form.initial.price }}' required>
+                      </div>
+                    </div>
+                    <br>
+
+                    <div class="form-group">
+                      <div style="float: left; width: 50%">
+                      <label for="brand">Brand</label>
+                      </div>
+                      <div class="brand" style="float: right; width: 45%">
+                        <select style="width:180px;" name="brand">
+                          <option value="honda" {% if form.initial.brand == 'honda' %}selected{% endif %}>Honda</option>
+                          <option value="audi" {% if form.initial.brand == 'audi' %}selected{% endif %}>Audi</option>
+                          <option value="bmw" {% if form.initial.brand == 'bmw' %}selected{% endif %}>BMW</option>
+                          <option value="mercedes" {% if form.initial.brand == 'mercedes' %}selected{% endif %}>MERCEDES</option>
+                          <option value="nissan" {% if form.initial.brand == 'nissan' %}selected{% endif %}>Nissan</option>
+                          <option value="suzuki" {% if form.initial.brand == 'suzuki' %}selected{% endif %}>Suzuki</option>
+                          <option value="toyota" {% if form.initial.brand == 'toyota' %}selected{% endif %}>Toyota</option>
+                          <option value="lexus" {% if form.initial.brand == 'lexus' %}selected{% endif %}>Lexus</option>
+                          <option value="hyundai" {% if form.initial.brand == 'hyundai' %}selected{% endif %}>Hyundai</option>
+                          <option value="jeep" {% if form.initial.brand == 'jeep' %}selected{% endif %}>Jeep</option>
+                          <option value="mazda" {% if form.initial.brand == 'mazda' %}selected{% endif %}>Mazda</option>
+                          <option value="mitsubishi" {% if form.initial.brand == 'mitsubishi' %}selected{% endif %}>Mitsubishi</option>
+                          <option value="daewoo" {% if form.initial.brand == 'daewoo' %}selected{% endif %}>Daewoo</option>
+                        </select>
+                      </div>
+                    </div>
+                    <br>
+
+                    <div class="form-group">
+                      <div style="float: left; width: 50%">
+                      <label for="modelyear">Model-Year</label>
+                      </div>
+                      <div class="modelyear" style="float: right; width: 45%">
+                        <input type="text" name="modelyear" placeholder="ie:1970-2018"  value='{{ form.initial.modelyear }}' required>
+                      </div>
+                    </div>
+                    <br>
+
+                    <div class="form-group">
+                      <div style="float: left; width: 50%">
+                      <label for="condition">Condition</label>
+                      </div>
+                    <div class="condition" style="float: right; width: 45%">
+                      <select style="width:180px;" name="condition">
+                        <option value="new" {% if form.initial.condition == 'new' %}selected{% endif %}>NEW</option>
+                        <option value="used" {% if form.initial.condition == 'used' %}selected{% endif %}>USED</option>
+                      </select>
+                    </div>
+                    </div>
+                    <br>
+
+                    <div class="form-group">
+                      <div style="float: left; width: 50%">
+                      <label for="mileage">Mileage</label>
+                      </div>
+                    <div class=mileage style="float: right; width: 45%">
+                        <input type="text" name="mileage" placeholder="ie:50000"  value='{{ form.initial.mileage }}' required>
+                    </div>
+                  </div>
+                    <br>
+
+                    <div class="form-group">
+                      <div style="float: left; width: 50%">
+                      <label for="air_conditioner">Air Conditioner</label>
+                      </div>
+                    <div class="air_conditioner" style="float: right; width: 45%">
+                      <select style="width:180px;" name="air_conditioner">
+                        <option value="no" {% if form.initial.air_conditioner == 'no' %}selected{% endif %}>NO</option>
+                        <option value="yes" {% if form.initial.air_conditioner == 'yes' %}selected{% endif %}>YES</option>
+                      </select>
+                    </div>
+                    </div>
+                    <br>
+
+                    <div class="form-group">
+                      <div style="float: left; width: 50%">
+                      <label for="power_windows">Power Windows</label>
+                      </div>
+                    <div class="power_windows" style="float: right; width: 45%">
+                      <select style="width:180px;" name="power_windows">
+                        <option value="no" {% if form.initial.power_windows == 'no' %}selected{% endif %}>NO</option>
+                        <option value="yes" {% if form.initial.power_windows == 'yes' %}selected{% endif %}>YES</option>
+                      </select>
+                    </div>
+                    </div>
+                    <br>
+
+                    <div class="form-group">
+                      <div style="float: left; width: 50%">
+                      <label for="power_steering">Power Steering</label>
+                      </div>
+                    <div class="power_steering" style="float: right; width: 45%">
+                      <select style="width:180px;" name="power_steering">
+                        <option value="no" {% if form.initial.power_steering == 'no' %}selected{% endif %}>NO</option>
+                        <option value="yes" {% if form.initial.power_steering == 'yes' %}selected{% endif %}>YES</option>
+                      </select>
+                    </div>
+                    </div>
+                    <br>
+
+                    <div class="form-group">
+                      <div style="float: left; width: 50%">
+                      <label for="automatic_break_system">Automatic Break System(ABS)</label>
+                      </div>
+                    <div class="automatic_break_system" style="float: right; width: 45%">
+                      <select style="width:180px;" name="automatic_break_system">
+                        <option value="no" {% if form.initial.automatic_break_system == 'no' %}selected{% endif %}>NO</option>
+                        <option value="yes" {% if form.initial.automatic_break_system == 'yes' %}selected{% endif %}>YES</option>
+                      </select>
+                    </div>
+                    </div>
+                    <br>
+
+                    <div class="form-group">
+                      <div style="float: left; width: 50%">
+                      <label for="air_bags">Air Bags</label>
+                      </div>
+                    <div class="air_bags" style="float: right; width: 45%">
+                      <select style="width:180px;" name="air_bags">
+                        <option value="no" {% if form.initial.air_bags == 'no' %}selected{% endif %}>NO</option>
+                        <option value="yes" {% if form.initial.air_bags == 'yes' %}selected{% endif %}>YES</option>
+                      </select>
+                    </div>
+                    </div>
+                    <br>
+
+
+
+                    <div class="form-group">
+                      <div style="float: left; width: 50%">
+                      <label for="cd_player">CD Player</label>
+                      </div>
+                    <div class="cd_player" style="float: right; width: 45%">
+                      <select style="width:180px;" name="cd_player">
+                        <option value="no" {% if form.initial.cd_player == 'no' %}selected{% endif %}>NO</option>
+                        <option value="yes" {% if form.initial.cd_player == 'yes' %}selected{% endif %}>YES</option>
+                      </select>
+                    </div>
+                    </div>
+                    <br>
+
+
+
+
+                    <div class="form-group">
+                      <div style="float: left; width: 50%">
+                      <label for="details">Type details here</label>
+                      </div>
+                    <div class="details" style="float: right; width: 45%">
+                      <textarea contenteditable id="details" name="details" maxlength="950" rows="9" cols="45" required>{{ form.initial.details }}</textarea>
+                    </div>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+
+{% if form.initial.image %}current:{% endif %} <a href="/media/{{ form.initial.image }}">{{ form.initial.image }}</a>
+                    <input type="file" id="image" name="image" value='{{ form.initial.image }}' accept="media/"><br>
+{% if form.initial.image1 %}current:{% endif %} <a href="/media/{{ form.initial.image1 }}">{{ form.initial.image1 }}</a>
+                    <input type="file" id="image1" name="image1" value='{{ form.initial.image1 }}' accept="media/"><br>
+{% if form.initial.image2 %}current:{% endif %} <a href="/media/{{ form.initial.image2 }}">{{ form.initial.image2 }}</a>
+                    <input type="file" id="image2" name="image2" value='{{ form.initial.image2 }}' accept="media/"><br>
+{% if form.initial.image3 %}current:{% endif %} <a href="/media/{{ form.initial.image3 }}">{{ form.initial.image3 }}</a>
+                    <input type="file" id="image3" name="image3" value='{{ form.initial.image3 }}' accept="media/"><br>
+{% if form.initial.image4 %}current:{% endif %} <a href="/media/{{ form.initial.image4 }}">{{ form.initial.image4 }}</a>
+                    <input type="file" id="image4" name="image4" value='{{ form.initial.image4 }}' accept="media/"><br>
+{% if form.initial.image5 %}current:{% endif %} <a href="/media/{{ form.initial.image5 }}">{{ form.initial.image5 }}</a>
+                    <input type="file" id="image5" name="image5" value='{{ form.initial.image5 }}' accept="media/"><br>
+{% if form.initial.image6 %}current:{% endif %} <a href="/media/{{ form.initial.image6 }}">{{ form.initial.image6 }}</a>
+                    <input type="file" id="image6" name="image6" value='{{ form.initial.image6 }}' accept="media/"><br>
+{% if form.initial.image7 %}current:{% endif %} <a href="/media/{{ form.initial.image7 }}">{{ form.initial.image7 }}</a>
+                    <input type="file" id="image7" name="image7" value='{{ form.initial.image7 }}' accept="media/"><br>
+{% if form.initial.image8 %}current:{% endif %} <a href="/media/{{ form.initial.image8 }}">{{ form.initial.image8 }}</a>
+                    <input type="file" id="image8" name="image8" value='{{ form.initial.image8 }}' accept="media/"><br>
+{% if form.initial.image9 %}current:{% endif %} <a href="/media/{{ form.initial.image9 }}">{{ form.initial.image9 }}</a>
+                    <input type="file" id="image9" name="image9" value='{{ form.initial.image9 }}' accept="media/"><br>
+
+                    <br> <h2>Contact Details:</h2><br><br>
+                    <div class="form-group">
+                      <div style="float: left; width: 30%">
+                      <label for="full_name">Full Name:</label>
+                      </div>
+                    <div class="full_name" style="float: right; width: 70%">
+                    <input style="width:300px; margin-left:10px;" type="text" name="full_name" value='{{ form.initial.full_name }}' id="full_name" class="form-control input-sm" placeholder="Full Name" required>
+                    </div>
+                  </div>
+                  <br>
+
+                  <div class="form-group">
+                    <div style="float: left; width: 30%">
+                    <label for="phone">Phone Number:</label>
+                    </div>
+                  <div class="phone" style="float: right; width: 70%">
+                    <input style="width:300px; margin-left:10px;" type="text" name="phone" value='{{ form.initial.phone }}' id="phone" class="form-control input-sm" placeholder="Enter Phone Number" required>
+                  </div>
+                  </div>
+                  <br>
+                  <br>
+                  <br>
+
+
+                      <input type="submit" name="submit" value="Update" class="btn btn-info" id="post_btn">
+                      <input type=button class="btn btn-default" value="Cancel" onClick="javascript:history.go(-1);">
+                  </div>
+                </form>
+      	</div>
+      </div>
+    </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+</body>
+</html>
+
+{% endblock %}
