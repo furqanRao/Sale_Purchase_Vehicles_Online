@@ -1,0 +1,212 @@
+{% extends "vehicles_app/index.html" %}
+{% block body_block %}
+{% load staticfiles %}
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Post Details!</title>
+
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bjqs.css' %}">
+    <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+    .mySlides {display:none}
+    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  </head>
+<body>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <div class="container" style="padding-left:290px; padding-right:0px; width: 93%;">
+    <div class="well" style=" background-color: rgb(220, 220, 220);">
+{% for query in queryset %}
+  <h3 class="media-heading" style="float: left; width: 50%">{{ query.title }}</h3> <h3 style="float: right; width: 30%; color: blue">Rs: {{ query.price }}</h3>
+
+
+    <div class="w3-content" style="max-width:800px">
+      {% if query.image %}
+        <img class="mySlides" src="{{ query.image.url }}" style="width:100%"  width="700" height="400">
+      {% endif %}
+      {% if query.image1 %}
+        <img class="mySlides" src="{{ query.image1.url }}" style="width:100%"  width="700" height="400">
+      {% endif %}
+      {% if query.image2 %}
+        <img class="mySlides" src="{{ query.image2.url }}" style="width:100%"  width="700" height="400">
+      {% endif %}
+      {% if query.image3 %}
+        <img class="mySlides" src="{{ query.image3.url }}" style="width:100%"  width="700" height="400">
+      {% endif %}
+      {% if query.image4 %}
+        <img class="mySlides" src="{{ query.image4.url }}" style="width:100%"  width="700" height="400">
+      {% endif %}
+      {% if query.image5 %}
+        <img class="mySlides" src="{{ query.image5.url }}" style="width:100%"  width="700" height="400">
+      {% endif %}
+      {% if query.image6 %}
+        <img class="mySlides" src="{{ query.image6.url }}" style="width:100%"  width="700" height="400">
+      {% endif %}
+      {% if query.image7 %}
+        <img class="mySlides" src="{{ query.image7.url }}" style="width:100%"  width="700" height="400">
+      {% endif %}
+      {% if query.image8 %}
+        <img class="mySlides" src="{{ query.image8.url }}" style="width:100%"  width="700" height="400">
+      {% endif %}
+      {% if query.image9 %}
+        <img class="mySlides" src="{{ query.image9.url }}" style="width:100%"  width="700" height="400">
+      {% endif %}
+    </div>
+
+
+  <div class="w3-center">
+    <div class="w3-section">
+      <button class="w3-button w3-light-grey" onclick="plusDivs(-1)">❮ Prev</button>
+      <button class="w3-button w3-light-grey" onclick="plusDivs(1)">Next ❯</button>
+    </div>
+
+    {% if query.image %}
+      <span><button class="w3-button w3-white" onclick="currentDiv(n)"><img src="{{ query.image.url }}" width="40" height="25"></button></span>
+    {% endif %}
+    {% if query.image1 %}
+      <span><button class="w3-button w3-white" onclick="currentDiv(n)"><img src="{{ query.image1.url }}" width="40" height="25"></button></span>
+    {% endif %}
+    {% if query.image2 %}
+      <span><button class="w3-button w3-white" onclick="currentDiv(n)"><img src="{{ query.image2.url }}" width="40" height="25"></button></span>
+    {% endif %}
+    {% if query.image3 %}
+      <span><button class="w3-button w3-white" onclick="currentDiv(n)"><img src="{{ query.image3.url }}" width="40" height="25"></button></span>
+    {% endif %}
+    {% if query.image4 %}
+      <span><button class="w3-button w3-white" onclick="currentDiv(n)"><img src="{{ query.image4.url }}" width="40" height="25"></button></span>
+    {% endif %}
+    {% if query.image5 %}
+      <span><button class="w3-button w3-white" onclick="currentDiv(n)"><img src="{{ query.image5.url }}" width="40" height="25"></button></span>
+    {% endif %}
+    {% if query.image6 %}
+      <span><button class="w3-button w3-white" onclick="currentDiv(n)"><img src="{{ query.image6.url }}" width="40" height="25"></button></span>
+    {% endif %}
+    {% if query.image7 %}
+      <span><button class="w3-button w3-white" onclick="currentDiv(n)"><img src="{{ query.image7.url }}" width="40" height="25"></button></span>
+    {% endif %}
+    {% if query.image8 %}
+      <span><button class="w3-button w3-white" onclick="currentDiv(n)"><img src="{{ query.image8.url }}" width="40" height="25"></button></span>
+    {% endif %}
+    {% if query.image9 %}
+      <span><button class="w3-button w3-white" onclick="currentDiv(n)"><img src="{{ query.image9.url }}" width="40" height="25"></button></span>
+    {% endif %}
+  </div>
+
+
+  <div class="container-fluid">
+          <table class="display" cellspacing="10" width="98%">
+                  <thead>
+                      <tr>
+                          <th>Brand</th>
+                          <th>Model year</th>
+                          <th>Condition</th>
+                          <th>Mileage</th>
+                          <th>Air Conditioner</th>
+                      </tr>
+                  </thead>
+                  <br>
+                    <tr>
+                        <td>{{ query.brand }}</td>
+                        <td>{{ query.modelyear }}</td>
+                        <td>{{ query.condition }}</td>
+                        <td>{{ query.mileage }}</td>
+                        <td>{{ query.air_conditioner }}</td>
+                    </tr>
+              </table><br>
+
+              <br><table class="display" cellspacing="10" width="98%">
+                      <thead>
+                          <tr>
+                              <th>Power Windows</th>
+                              <th>Power Steering</th>
+                              <th>ABS</th>
+                              <th>Air Bags</th>
+                              <th>CD Player</th>
+                          </tr>
+                      </thead>
+                      <br>
+                        <tr>
+                            <td>{{ query.power_windows }}</td>
+                            <td>{{ query.power_steering }}</td>
+                            <td>{{ query.automatic_break_system }}</td>
+                            <td>{{ query.air_bags }}</td>
+                            <td>{{ query.cd_player }}</td>
+                        </tr>
+                  </table>
+
+
+        <h3> {{ query.details }} </h3>
+
+        <ul class="list-inline list-unstyled">
+      <li><span><i class="glyphicon glyphicon-calendar"></i> {{ query.date }} </span></li>
+          <li>|</li>
+          <strong><span style="color: blue"> {{ query.city }} </span></strong><br>
+        </ul><br>
+           {% if user.is_authenticated %}
+           <ul style="color:red; font-size:20px;" class="list-inline list-unstyled">
+             <li><span>Owner Name: {{ query.full_name }}  </span></li><br>
+             <li><span>Phone Number: {{ query.phone }} </span></li>
+           </ul>
+           {% else %}
+              <div class="">
+             <h4 style="display:inline">You need to</h4><a style="display:inline; font-size:25px; text-decoration:None" href="{% url 'vehicles_app:user_login' %}">LogIn</a>
+             <h4 style="display:inline">To contact the vehicle owner!</h4>
+           </div>
+           {% endif %}
+           {% endfor %}
+
+
+        </div>
+        </div>
+
+        <style>
+              table, th, td {
+                  border: 1px solid black;
+                  text-align: left;
+              }
+              th, td {
+                  padding: 15px;
+              }
+        </style>
+
+  <script>
+  var slideIndex = 1;
+  showDivs(slideIndex);
+
+  function plusDivs(n) {
+    showDivs(slideIndex += n);
+  }
+
+  function currentDiv(n) {
+    showDivs(slideIndex = n);
+  }
+
+  function showDivs(n) {
+    var i;
+    var x = document.getElementsByClassName("mySlides");
+    var dots = document.getElementsByClassName("demo");
+    if (n > x.length) {slideIndex = 1}
+    if (n < 1) {slideIndex = x.length}
+    for (i = 0; i < x.length; i++) {
+       x[i].style.display = "none";
+    }
+    for (i = 0; i < dots.length; i++) {
+       dots[i].className = dots[i].className.replace(" w3-red", "");
+    }
+    x[slideIndex-1].style.display = "block";
+    dots[slideIndex-1].className += " w3-red";
+  }
+  </script>
+
+
+</body>
+</html>
+{% endblock %}

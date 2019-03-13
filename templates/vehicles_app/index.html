@@ -1,0 +1,417 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <title>Online Vehicles</title>
+
+    <link rel="icon" href="{% static '/img/car.jpg' %}" type="image/gif">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bjqs.css' %}">
+    <script type="text/javascript" src="{% static 'js/main.js' %}">
+
+    </script>
+    <style>
+    .mySlides {display:none;}
+    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    </head>
+  <body style="background-color:white;">
+
+
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+    <div class="navbar-header">
+
+        <a class="navbar-brand" id="image" href="{% url 'index' %}"><img src="{% static 'img/car.jpg' %}"></a>
+        <a title="Click to add new post" class="navbar-brand" href="{% url 'vehicles_app:addfile' %}"><b style="font-size:20px;">Ad Post</b></a>
+
+
+        <form class="navbar-form navbar-left" method='get' action=''>
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search ads here" name="q" value='{{ request.GET.q }}'>
+          <div class="input-group-btn">
+            <button class="btn btn-default" type="submit">
+              <i class="glyphicon glyphicon-search"></i>
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <ul class="nav navbar-nav navbar-left">
+       <li><a title="Click to compare vehicles" value='pk1' class='navbar-link' href="{% url 'vehicles_app:compare' %}"><b style="font-size:20px;">Compare</b></a></li>
+       <li><a title="Click to see Most Searched Vehicles" value='pk2' class='navbar-link' href="{% url 'vehicles_app:frequently_searched' %}"><b style="font-size:20px;">Hot Deals</b></a></li>
+       <li><a value='pk3' class='navbar-link' href="{% url 'vehicles_app:cars' %}">Cars</a></li>
+       <li><a value='pk4' class='navbar-link' href="{% url 'vehicles_app:bikes' %}">Bikes</a></li>
+       <li><a value='pk5' class='navbar-link' href="{% url 'vehicles_app:trucks' %}">Trucks</a></li>
+      </ul>
+    </div>
+
+      <ul class="nav navbar-nav navbar-right">
+
+        {% if user.is_authenticated %}
+          <li><a value='pk1' class='navbar-link' href="{% url 'vehicles_app:myposts' %}">My Posts</a></li>
+          <li><a class='navbar-link' href="{% url 'logout' %}">LogOut</a></li>
+        {% else %}
+          <li><a href="{% url 'vehicles_app:signUp' %}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          <li><a href="{% url 'vehicles_app:user_login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        {% endif %}
+
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+
+
+<div class="container" style="margin-top:60px; float:left; height:auto;">
+<div class="row">
+<div class="col-md-3">
+<div class="sidebar-nav-fixed affix">
+<div class="well" style=" background-color:rgb(220, 220, 220); height:515px;">
+<div class="panel panel-default">
+<div class="panel-heading">
+  <h3 class="panel-title">Search for vehicles here!</h3>
+</div>
+<div class="panel-body">
+  <form method='get' action=''>
+  <div style="padding:10px;" class="">
+    <div class="row">
+    <div class="form-group">
+      <div style="float: left; width: 40%">
+        <label for="category">Category:</label>
+      </div>
+        <div class="category" style="float: right; width: 60%">
+        <select style="width:146px;" name="category" value='{{ request.GET.category }}'>
+          <option value="cars" {% if request.GET.category == 'cars' %}selected{% endif %}>Cars</option>
+          <option value="trucks" {% if request.GET.category == 'trucks' %}selected{% endif %}>Trucks</option>
+          <option value="motorbikes" {% if request.GET.category == 'motorbikes' %}selected{% endif %}>Motor Bikes</option>
+        </select>
+        </div>
+      </div>
+    </div>
+        <br>
+
+    <div class="row">
+
+    <div class="form-group">
+    <div style="float: left; width: 40%">
+      <label for="city">City:</label>
+    </div>
+      <div class="city" style="float: right; width: 60%">
+        <select style="width:146px;" name="city" value='{{ request.GET.city }}'>
+          <option value="islamabad" {% if request.GET.city == 'islamabad' %}selected{% endif %}>Islamabad</option>
+          <option value="karachi" {% if request.GET.city == 'karachi' %}selected{% endif %}>Karachi</option>
+          <option value="lahore" {% if request.GET.city == 'lahore' %}selected{% endif %}>Lahore</option>
+          <option value="peshawar" {% if request.GET.city == 'peshawar' %}selected{% endif %}>Peshawar</option>
+          <option value="quetta" {% if request.GET.city == 'quetta' %}selected{% endif %}>Quetta</option>
+          <option value="multan" {% if request.GET.city == 'multan' %}selected{% endif %}>Multan</option>
+          <option value="faisalabad" {% if request.GET.city == 'faisalabad' %}selected{% endif %}>Faisalabad</option>
+        </select>
+      </div>
+    </div>
+  </div>
+<br>
+
+  <div class="row">
+
+    <div class="form-group">
+      <div style="float: left; width: 40%">
+        <label for="brand">Vehicle Brand:</label>
+      </div>
+      <div class="brand" style="float: right; width: 60%">
+        <select style="width:146px;" name="brand" value='{{ request.GET.brand }}'>
+          <option value="honda" {% if request.GET.brand == 'honda' %}selected{% endif %}>HONDA</option>
+          <option value="audi" {% if request.GET.brand == 'audi' %}selected{% endif %}>AUDI</option>
+          <option value="bmw" {% if request.GET.brand == 'bmw' %}selected{% endif %}>BMW</option>
+          <option value="mercedes" {% if request.GET.brand == 'mercedes' %}selected{% endif %}>MERCEDES</option>
+          <option value="nissan" {% if request.GET.brand == 'nissan' %}selected{% endif %}>NISSAN</option>
+          <option value="suzuki" {% if request.GET.brand == 'suzuki' %}selected{% endif %}>SUZUKI</option>
+          <option value="toyota" {% if request.GET.brand == 'toyota' %}selected{% endif %}>TOYOTA</option>
+          <option value="lexus" {% if request.GET.brand == 'lexus' %}selected{% endif %}>LEXUS</option>
+          <option value="hyundai" {% if request.GET.brand == 'hyundai' %}selected{% endif %}>HYUNDAI</option>
+          <option value="jeep" {% if request.GET.brand == 'jeep' %}selected{% endif %}>JEEP</option>
+          <option value="mazda" {% if request.GET.brand == 'mazda' %}selected{% endif %}>MAZDA</option>
+          <option value="mitsubishi" {% if request.GET.brand == 'mitsubishi' %}selected{% endif %}>MITSUBISHI</option>
+          <option value="daewoo" {% if request.GET.brand == 'daewoo' %}selected{% endif %}>DAEWOO</option>
+        </select>
+      </div>
+    </div>
+  </div><br>
+
+<div class="row">
+
+  <div class="form-group">
+    <div style="float: left; width: 40%">
+      <label for="modelyear">Model Year:</label>
+    </div>
+      <div class="modelyear" style="float: right; width: 60%;">
+      <input style="width:146px;" type="text" name="modelyear" placeholder="ie:2018" value='{{ request.GET.modelyear }}'>
+      </div>
+    </div>
+  </div>
+  <br>
+<div class="row">
+<div class="form-group">
+  <div style="float: left; width: 40%">
+    <label for="condition">Condition:</label>
+  </div>
+    <div class="condition" style="float: right; width: 60%">
+    <select style="width:146px;" name="condition" value='{{ request.GET.condition }}'>
+      <option value="new" {% if request.GET.condition == 'new' %}selected{% endif %}>NEW</option>
+      <option value="used" {% if request.GET.condition == 'used' %}selected{% endif %}>USED</option>
+    </select>
+    </div>
+  </div>
+</div>
+    <br>
+
+    <div class="row">
+
+      <div class="form-group">
+        <div style="float: left; width: 40%">
+          <label for="mileagefrom">Mileage From:</label>
+        </div>
+
+            <div class="brand" style="float: right; width: 60%">
+              <select style="width:146px;" name="mileagefrom" value='{{ request.GET.mileagefrom }}'>
+                <option value="1" {% if request.GET.mileagefrom == '1' %}selected{% endif %}>1</option>
+                <option value="10000" {% if request.GET.mileagefrom == '10000' %}selected{% endif %}>10000</option>
+                <option value="20000" {% if request.GET.mileagefrom == '20000' %}selected{% endif %}>20000</option>
+                <option value="30000" {% if request.GET.mileagefrom == '30000' %}selected{% endif %}>30000</option>
+                <option value="40000" {% if request.GET.mileagefrom == '40000' %}selected{% endif %}>40000</option>
+                <option value="50000" {% if request.GET.mileagefrom == '50000' %}selected{% endif %}>50000</option>
+                <option value="60000" {% if request.GET.mileagefrom == '60000' %}selected{% endif %}>60000</option>
+                <option value="70000" {% if request.GET.mileagefrom == '70000' %}selected{% endif %}>70000</option>
+                <option value="80000" {% if request.GET.mileagefrom == '80000' %}selected{% endif %}>80000</option>
+                <option value="90000" {% if request.GET.mileagefrom == '90000' %}selected{% endif %}>90000</option>
+              </select>
+            </div>
+        </div><br>
+        <div style="float: left; width: 30%">
+          <label for="mileageto">Mileage To:</label>
+        </div>
+        <div class="brand" style="float: right; width: 60%">
+          <select style="width:146px;" name="mileageto" value='{{ request.GET.mileageto }}'>
+            <option value="10000" {% if request.GET.mileageto == '10000' %}selected{% endif %}>10000</option>
+            <option value="20000" {% if request.GET.mileageto == '20000' %}selected{% endif %}>20000</option>
+            <option value="30000" {% if request.GET.mileageto == '30000' %}selected{% endif %}>30000</option>
+            <option value="40000" {% if request.GET.mileageto == '40000' %}selected{% endif %}>40000</option>
+            <option value="50000" {% if request.GET.mileageto == '50000' %}selected{% endif %}>50000</option>
+            <option value="60000" {% if request.GET.mileageto == '60000' %}selected{% endif %}>60000</option>
+            <option value="70000" {% if request.GET.mileageto == '70000' %}selected{% endif %}>70000</option>
+            <option value="80000" {% if request.GET.mileageto == '80000' %}selected{% endif %}>80000</option>
+            <option value="90000" {% if request.GET.mileageto == '90000' %}selected{% endif %}>90000</option>
+            <option value="100000" {% if request.GET.mileageto == '100000' %}selected{% endif %}>100000</option>
+          </select>
+        </div>
+        </div>
+
+
+
+        <div class="row">
+
+          <div class="form-group">
+            <div style="float: left; width: 40%">
+              <label for="pricefrom">Price From:</label>
+            </div>
+
+                <div class="brand" style="float: right; width: 60%">
+                  <select  style="width:146px;" name="pricefrom" value='{{ request.GET.pricefrom }}'>
+                    <option value="10000" {% if request.GET.pricefrom == '10000' %}selected{% endif %}>10000</option>
+                    <option value="100000" {% if request.GET.pricefrom == '100000' %}selected{% endif %}>100000</option>
+                    <option value="200000" {% if request.GET.pricefrom == '200000' %}selected{% endif %}>200000</option>
+                    <option value="300000" {% if request.GET.pricefrom == '300000' %}selected{% endif %}>300000</option>
+                    <option value="400000" {% if request.GET.pricefrom == '400000' %}selected{% endif %}>400000</option>
+                    <option value="500000" {% if request.GET.pricefrom == '500000' %}selected{% endif %}>500000</option>
+                    <option value="600000" {% if request.GET.pricefrom == '600000' %}selected{% endif %}>600000</option>
+                    <option value="700000" {% if request.GET.pricefrom == '700000' %}selected{% endif %}>700000</option>
+                    <option value="800000" {% if request.GET.pricefrom == '800000' %}selected{% endif %}>800000</option>
+                    <option value="900000" {% if request.GET.pricefrom == '900000' %}selected{% endif %}>900000</option>
+                    <option value="1500000" {% if request.GET.pricefrom == '1500000' %}selected{% endif %}>1500000</option>
+                    <option value="2000000" {% if request.GET.pricefrom == '2000000' %}selected{% endif %}>2000000</option>
+                    <option value="5000000" {% if request.GET.pricefrom == '5000000' %}selected{% endif %}>5000000</option>
+                    <option value="10000000" {% if request.GET.pricefrom == '10000000' %}selected{% endif %}>10000000</option>
+                  </select>
+                </div>
+            </div><br>
+            <div style="float: left; width: 30%">
+              <label for="priceto">Price To:</label>
+            </div>
+            <div class="brand" style="float: right; width: 60%">
+              <select style="width:146px;" name="priceto" value='{{ request.GET.priceto }}'>
+                <option value="50000" {% if request.GET.priceto == '50000' %}selected{% endif %}>50000</option>
+                <option value="200000" {% if request.GET.priceto == '200000' %}selected{% endif %}>200000</option>
+                <option value="500000" {% if request.GET.priceto == '500000' %}selected{% endif %}>500000</option>
+                <option value="800000" {% if request.GET.priceto == '800000' %}selected{% endif %}>800000</option>
+                <option value="1000000" {% if request.GET.priceto == '1000000' %}selected{% endif %}>1000000</option>
+                <option value="1500000" {% if request.GET.priceto == '1500000' %}selected{% endif %}>1500000</option>
+                <option value="4000000" {% if request.GET.priceto == '4000000' %}selected{% endif %}>4000000</option>
+                <option value="8000000" {% if request.GET.priceto == '8000000' %}selected{% endif %}>8000000</option>
+                <option value="15000000" {% if request.GET.priceto == '15000000' %}selected{% endif %}>15000000</option>
+                <option value="20000000" {% if request.GET.priceto == '20000000' %}selected{% endif %}>20000000</option>
+                <option value="50000000" {% if request.GET.priceto == '50000000' %}selected{% endif %}>50000000</option>
+              </select>
+            </div>
+            </div>
+          <br>
+  <button type="submit" id="submit" style="float: left; width: 50%" class="btn btn-info">
+    <span class="glyphicon glyphicon-search"></span> Search
+  </button> <input type="reset" value="Reset" id="reset" style="float: right; width: 50%" class="btn btn-danger">
+
+    </div>
+    </form>
+  </div>
+</div>
+
+</div>
+</div>
+</div>
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+      {% block body_block %}
+      {% if messages %}
+        <ul class="messages">
+          {% for message in messages %}
+          <h2 style="margin-left:300px;">  {{ message }} </h2>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+
+
+
+    {% for obj in context %}
+
+      <div class="container" style="padding-left:330px; ;padding-right:0px; width: 100%; margin-bottom: 30px;">
+        <div class="well" style=" background-color: rgb(220, 220, 220);">
+            <div class="media">
+        		<div class="media-body">
+              <a title="Click for details!" onclick="document.forms['form-id'].submit();" style="text-decoration:none;" href="{% url 'vehicles_app:data' obj.id %}">
+                <input type="hidden" name="usr_id" value="{{ obj.user }}">
+              <div class="list-group">
+                  <div class="d-flex w-100 justify-content-between">
+          		<h3 class="media-heading" style="margin-top:20px; margin-bottom:20px; color: black;">{{ obj.title }}</h3>
+                <div class="w3-content" style="max-width:800px">
+                    {% if obj.image %}
+                       <img style="margin-bottom:30px; float: right" src="{{ obj.image.url }}" width="250" height="250">
+                    {% endif %}
+                </div>
+                <p style="margin-left:10px; color:black; text-overflow: ellipsis;width: 400px;overflow: hidden; white-space: nowrap;"> {{ obj.details }} </p>
+                <ul class="list-inline list-unstyled">
+
+                  <li>|</li>
+                  <span style="margin-left:10px;"><i>Brand: {{ obj.brand }} </i></span>
+                      <span style="margin-left:10px;"><i>City:{{ obj.city }} </i> </span><br>
+                      <li style="margin-left:10px;"><span><i class="glyphicon glyphicon-calendar"></i> {{ obj.date }} </span></li>
+                  <br><br></a>
+                    {% if request.user == obj.user or request.user.is_superuser %}
+                    <br><br>
+                    <form action="{% url 'vehicles_app:file-delete' obj.id %}" method="post" style="display: inline; left:0; margin-left:10px;">{% csrf_token %} <input type="hidden" name="post_id" value="{{ obj.id }}">
+                      <button title="Click to delete!" onclick="return confirm('Are you sure you want to delete this Post?')" type="submit" data-confirm="Are you sure you want to delete?" class="btn btn-danger btn-lg"> <span class="glyphicon glyphicon-trash"></span>Delete</button></form>
+
+
+                      <form action="{% url 'vehicles_app:update_post' obj.id %}" method="get" style="display: inline; left:0;">{% csrf_token %}<input type="hidden" name="post_id" value="{{ obj.id }}">
+
+                        <button title="Click to edit!" type="submit"  class="btn btn-info btn-lg"> <span class="glyphicon glyphicon-edit"></span>Edit</button></form>
+
+                        {% else %}
+                        {% endif %}
+      			        </ul>
+                 </div>
+            </div>
+               </div>
+             </div>
+
+             </div>
+             </div>
+             {% empty %}
+              <h1 style="margin-top:20px; margin-left:400px; color: black;">No Post Found!</h1>
+            {% endfor %}
+
+<script>
+    $(document).on('click', '.confirm-delete', function(){
+      return confirm('Are you sure you want to delete this Post?');
+    })
+</script>
+
+
+
+    <div class="container-fluid">
+      <div class="pagin" style="margin-left:600px; ">
+      <div class="pagination">
+        <span class="step-links">
+
+            {% if query == None and city_query == None %}
+            {% if context.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ context.previous_page_number }}">previous</a>
+            {% endif %}
+            {% endif %}
+
+            {% if context.has_previous and query %}
+              {% if query %}
+                <a href="?page=1&q={{query}}">&laquo; first</a>
+                <a href="?page={{ context.previous_page_number }}&q={{query}}">previous</a>
+              {% else %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ context.previous_page_number }}">previous</a>
+              {% endif %}
+            {% endif %}
+
+            {% if context.has_previous and city_query %}
+              <a href="?page=1&category={{cat_query}}&city={{city_query}}&brand={{brand_query}}&modelyear={{model_query}}&condition={{condition_query}}&mileagefrom={{mileage_from_query}}&mileageto={{mileage_to_query}}&pricefrom={{price_from_query}}&priceto={{price_to_query}}">&laquo; first</a>
+              <a href="?page={{ context.previous_page_number }}&category={{cat_query}}&city={{city_query}}&brand={{brand_query}}&modelyear={{model_query}}&condition={{condition_query}}&mileagefrom={{mileage_from_query}}&mileageto={{mileage_to_query}}&pricefrom={{price_from_query}}&priceto={{price_to_query}}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ context.number }} of {{ context.paginator.num_pages }}.
+            </span>
+
+            {% if context.has_next and query %}
+              {% if query %}
+                <a href="?page={{ context.next_page_number }}&q={{query}}">next</a>
+                <a href="?page={{ context.paginator.num_pages }}&q={{query}}">last &raquo;</a>
+              {% else %}
+                  <a href="?page={{ context.next_page_number }}">next</a>
+                  <a href="?page={{ context.paginator.num_pages }}">last &raquo;</a>
+              {% endif %}
+            {% endif %}
+
+            {% if context.has_next and city_query %}
+                <a href="?page={{ context.next_page_number }}&category={{cat_query}}&city={{city_query}}&brand={{brand_query}}&modelyear={{model_query}}&condition={{condition_query}}&mileagefrom={{mileage_from_query}}&mileageto={{mileage_to_query}}&pricefrom={{price_from_query}}&priceto={{price_to_query}}">next</a>
+                <a href="?page={{ context.paginator.num_pages }}&category={{cat_query}}&city={{city_query}}&brand={{brand_query}}&modelyear={{model_query}}&condition={{condition_query}}&mileagefrom={{mileage_from_query}}&mileageto={{mileage_to_query}}&pricefrom={{price_from_query}}&priceto={{price_to_query}}">last &raquo;</a>
+            {% endif %}
+
+            {% if query == None and city_query == None %}
+            {% if context.has_next and vehicle_category == None %}
+                <a href="?page={{ context.next_page_number }}">next</a>
+                <a href="?page={{ context.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+            {% endif %}
+
+
+            {% if vehicle_category %}
+            {% if city_query == None and query == None %}
+            <a href="?page={{ context.next_page_number }}&ctgry={{vehicle_category}}">next</a>
+            <a href="?page={{ context.paginator.num_pages }}&ctgry={{vehicle_category}}">last &raquo;</a>
+            {% endif %}
+            {% endif %}
+
+        </span>
+      </div>
+      </div>
+      </div>
+
+      {% endblock %}
+    </div>
+  </body>
+</html>
