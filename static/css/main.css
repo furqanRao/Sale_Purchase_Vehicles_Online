@@ -1,0 +1,27 @@
+#data_body {
+    padding-left: 300px;
+}
+th {
+  color: darkblue;
+}
+#addfile_form {
+  padding-left: 100px;
+}
+#post_head {
+  padding-left: 230px;
+}
+#post_btn {
+  margin-left: 300px;
+}
+#pagin {
+  padding-left: 700px;
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  display: inline-block;
+}
+select.selectpicker option {
+background-repeat:no-repeat;
+background-position:bottom left;
+padding-left:30px;
+}
