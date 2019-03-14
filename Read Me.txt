@@ -3,16 +3,16 @@ you need to have empty database 'vehicles' in mysql ...
 to run this site you need to install:
 
 1. python 3.6.1 from this link (https://filehippo.com/download_python/74224/https://filehippo.com/download_python/74224/)
-2.pip from this link  https://pip.pypa.io/en/stable/installing/  ...on this site you'll see To install pip, securely download get-pip.py. [2] ,right click and
+2.pip from this link  https://pip.pypa.io/en/stable/installing/  ...on this site you'll see how To install pip, securely download get-pip.py. [2] ,right click and
  save it in some directory and open command prompt and go to that directory and type python get-pip.py
 3.in coomand prompt go to the same directory where the attached file named requirements.txt is,and type   pip install -r requirements.txt 
 and all the required packages which are mentioned in requirements.txt will be installed.
 4. run command prompt as administrator and go to the project directory and folder sale_purchase_vehicles and type commands one by one,
-• python manage.py migrate    ...then
-• python manage.py makemigrations vehicles_app  ....and then
-• python manage.py createsuperuser
+â€¢ python manage.py migrate    ...then
+â€¢ python manage.py makemigrations vehicles_app  ....and then
+â€¢ python manage.py createsuperuser
 it will ask for username and password for admin/superuser...create admin and then run command
-• python manage.py runserver
+â€¢ python manage.py runserver
 copy the localhost address and type in browser,
 to go to admin type in browser  http://127.0.0.1:8000/admin/
 then you can navigate to site to add post and view posts..
