@@ -5,7 +5,7 @@ to run this site you need to install:
 1. python 3.6.1 from this link (https://filehippo.com/download_python/74224/https://filehippo.com/download_python/74224/)
 2.pip from this link  https://pip.pypa.io/en/stable/installing/  ...on this site you'll see how To install pip, securely download get-pip.py. [2] ,right click and
  save it in some directory and open command prompt and go to that directory and type python get-pip.py
-3.in coomand prompt go to the same directory where the attached file named requirements.txt is,and type   pip install -r requirements.txt 
+3.in coomand prompt in your virtual environment go to the same directory where the attached file named requirements.txt is,and type   pip install -r requirements.txt 
 and all the required packages which are mentioned in requirements.txt will be installed.
 4. run command prompt as administrator and go to the project directory and folder sale_purchase_vehicles and type commands one by one,
 • python manage.py migrate    ...then
